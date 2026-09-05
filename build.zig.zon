@@ -1,0 +1,17 @@
+.{
+    .name = .crownlet_example,
+    .version = "0.0.0",
+    .fingerprint = 0x318c1b9184d26c07,
+    .minimum_zig_version = "0.16.0",
+    .dependencies = .{
+        .crownlet = .{
+            .url = "git+https://github.com/cacticrown/crownlet.git#c7cbce6be508fb53dea066cab7633e42ad6477ef",
+            .hash = "crownlet-0.0.0-meT5cVZHAADuVQln8Uq90NjgoyebH9XXel_9_k-JCpFS",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}
