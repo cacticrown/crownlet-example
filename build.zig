@@ -4,23 +4,22 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const crownlet_dep = b.dependency("crownlet", .{
-        .target = target,
-        .optimize = optimize,
-    });
-
     const exe = b.addExecutable(.{
         .name = "crownlet_example",
         .root_module = b.createModule(.{
             .root_source_file = b.path("src/main.zig"),
             .target = target,
             .optimize = optimize,
-            .imports = &.{
-                .{ .name = "crownlet", .module = crownlet_dep.module("crownlet") },
-            },
         }),
     });
     b.installArtifact(exe);
+
+    const crownlet_dep = b.dependency("crownlet", .{
+        .target = target,
+        .optimize = optimize,
+    });
+
+    exe.root_module.addImport("crownlet", crownlet_dep.module("crownlet"));
 
     const run_cmd = b.addRunArtifact(exe);
     run_cmd.step.dependOn(b.getInstallStep());
