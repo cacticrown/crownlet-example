@@ -1,24 +1,19 @@
-const std = @import("std");
 const crown = @import("crownlet");
 
-fn init() !void {}
+const Game = struct {};
 
-fn update(delta_time: f32) !void {
-    _ = delta_time;
-}
-
-fn draw() !void {
+fn draw(game: *Game) !void {
+    _ = game;
+    try crown.graphics.begin(.{});
     try crown.graphics.clear(crown.graphics.Color.black);
-    try crown.graphics.present();
+    try crown.graphics.end();
 }
-
-fn shutdown() !void {}
 
 pub fn main() !void {
-    try crown.run(.{
-        .init = &init,
-        .update = &update,
+    var game = Game{};
+
+    try crown.run(&game, .{
         .draw = &draw,
-        .shutdown = &shutdown,
+        .window_title = "example",
     });
 }
